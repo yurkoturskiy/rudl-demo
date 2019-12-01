@@ -19,7 +19,7 @@ function Ghost(props) {
 //////////////////////////////
 /* Masonry layout component */
 //////////////////////////////
-var longPress;
+var longPress, press;
 
 function DraggableMasonryLayout(props) {
   const { transitionTimingFunction, transitionDuration } = props;
@@ -83,6 +83,12 @@ function DraggableMasonryLayout(props) {
   const [ghost, setGhost] = useState();
   const [ghostPos, setGhostPos] = useState();
   const [ghostSourceId, setGhostSourceId] = useState();
+  // Body
+  const [bodyDefaultOverflow, setBodyDefaultOverflow] = useState();
+  const [
+    bodyDefaultOverscrollBehaviorY,
+    setBodyDefaultOverscrollBehaviorY
+  ] = useState();
 
   /////////////////////
   /* Events' methods */
@@ -175,6 +181,9 @@ function DraggableMasonryLayout(props) {
     // setCursorPos(undefined);
     setGhost(undefined);
     setGhostPos(undefined);
+    // Body
+    document.body.style.overflow = bodyDefaultOverflow;
+    document.body.style.overscrollBehaviorY = bodyDefaultOverscrollBehaviorY;
     // Log
     setUILog("cleanup");
   };
@@ -208,6 +217,7 @@ function DraggableMasonryLayout(props) {
     const touchY = e.touches[0].clientY;
     setDrag(drag => {
       !drag && clearTimeout(longPress);
+      !drag && clearTimeout(press);
       if (drag) {
         let overElementId = document.elementFromPoint(touchX, touchY).id;
         let overElementItem = getItemById(overElementId);
@@ -221,13 +231,16 @@ function DraggableMasonryLayout(props) {
 
   const onTouchEnd = e => {
     setUILog("touch end");
-    setDragItemIndex(dragItemIndex => {
-      dragItemIndex !== undefined && clearTimeout(longPress); // Cancel drag event for touch scn
-      return dragItemIndex;
-    });
+    clearTimeout(press);
+    clearTimeout(longPress); // Cancel drag event for touch scn
     cleanupDrag();
     setTouch(false);
   };
+
+  useEffect(() => {
+    setBodyDefaultOverflow(document.body.style.overflow);
+    setBodyDefaultOverscrollBehaviorY(document.body.style.overscrollBehaviorY);
+  }, []);
 
   //////////////////
   /* Mouse events */
@@ -316,6 +329,11 @@ function DraggableMasonryLayout(props) {
     }
     if (touch && !drag) {
       // For touch interface
+      press = setTimeout(() => {
+        // Temporary disable scroll and pull-down-to-refresh
+        document.body.style.overflow = "hidden";
+        document.body.style.overscrollBehaviorY = "contain";
+      }, 300);
       longPress = // Long press event
         touchFingers === 1 &&
         setTimeout(() => {
@@ -350,6 +368,11 @@ function DraggableMasonryLayout(props) {
         x: (touch ? touchPos.x : mousePos.x) - dragPoint.x - window.scrollX,
         y: (touch ? touchPos.y : mousePos.y) - dragPoint.y - window.scrollY
       });
+    } else if (!drag && ghost) {
+      console.log("after drag");
+      // setGhostPos({
+      //   items[dragItemIndex].
+      // })
     }
   }, [mousePos, touchPos, touch, drag, dragPoint, dragItemIndex, ghost, items]);
 
@@ -580,8 +603,7 @@ function DraggableMasonryLayout(props) {
           style={{
             position: "relative",
             width: `${layout.width}px`,
-            margin: "0 auto 0 auto",
-            outline: "1px solid green"
+            margin: "0 auto 0 auto"
           }}
         >
           {props.header}

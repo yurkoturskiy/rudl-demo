@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function Card(props) {
-  console.log("card props", props);
-  return <div className="card" id={props.id} {...props.draggableItem} />;
+  return (
+    <div
+      className="card"
+      id={props.id}
+      style={{
+        height: `${props.height - 24}px`,
+        width: `${props.width - 24}px`
+      }}
+      {...props.draggableItem}
+    />
+  );
 }
 
 export default Card;

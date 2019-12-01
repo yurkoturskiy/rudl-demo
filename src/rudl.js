@@ -82,6 +82,7 @@ function DraggableMasonryLayout(props) {
   // Ghost
   const [ghost, setGhost] = useState();
   const [ghostPos, setGhostPos] = useState();
+  const [ghostSourceId, setGhostSourceId] = useState();
 
   /////////////////////
   /* Events' methods */
@@ -344,6 +345,7 @@ function DraggableMasonryLayout(props) {
     // Set ghost position to mouse move position
     if (drag && dragPoint && (touchPos || mousePos)) {
       !ghost && setGhost(React.cloneElement(items[dragItemIndex].element));
+      setGhostSourceId(items[dragItemIndex].id);
       setGhostPos({
         x: (touch ? touchPos.x : mousePos.x) - dragPoint.x - window.scrollX,
         y: (touch ? touchPos.y : mousePos.y) - dragPoint.y - window.scrollY
@@ -553,13 +555,13 @@ function DraggableMasonryLayout(props) {
           top: `${layout.elements[index] ? layout.elements[index].y : 0}px`,
           left: `${layout.elements[index] ? layout.elements[index].x : 0}px`,
           transition: `${
-            transition && layoutIsMount
+            ghostSourceId !== item.id && transition && layoutIsMount
               ? `top ${transitionDuration} ${transitionTimingFunction}, left ${transitionDuration} ${transitionTimingFunction}`
               : "none"
           }`,
           visibility:
             layout.elements[index] && layoutIsMount ? "visible" : "hidden",
-          opacity: ghostPos && dragItemIndex === items[index].index ? 0 : 1
+          opacity: ghost && dragItemIndex === items[index].index ? 0 : 1
         }}
         onLoad={loadHandler}
         onError={errorHandler}
@@ -600,8 +602,8 @@ function DraggableMasonryLayout(props) {
         className="boundry-box"
       >
         {renderItems}
-        {drag && ghostPos && (
-          <Ghost x={ghostPos.x} y={ghostPos.y}>
+        {ghost && (
+          <Ghost x={ghostPos.x} y={ghostPos.y} drag={drag}>
             {ghost}
           </Ghost>
         )}

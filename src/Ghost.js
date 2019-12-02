@@ -4,7 +4,6 @@ function Ghost(props) {
   return (
     <div
       style={{
-        zIndex: 10,
         position: "fixed",
         visibility: "visible",
         left: props.x,

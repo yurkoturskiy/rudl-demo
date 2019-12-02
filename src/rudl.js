@@ -8,7 +8,12 @@ import Ghost from "./Ghost";
 var longPress, press, ghostTimeout;
 
 function DraggableMasonryLayout(props) {
-  const { transitionTimingFunction, transitionDuration } = props;
+  const {
+    transitionTimingFunction,
+    transitionDuration,
+    ghostTransitionDuration,
+    ghostTransitionTimingFunction
+  } = props;
   const generateItems = () =>
     React.Children.map(props.children, (child, index) => {
       console.log("child", child);
@@ -354,8 +359,12 @@ function DraggableMasonryLayout(props) {
         // Create ghost
         let sourceId = items[dragItemIndex].id;
         let id = `${sourceId}-ghost`;
-        let sourceClassList = document.getElementById(sourceId).classList;
-        let className = `${sourceClassList} ghost`;
+        let sourceElement = document.getElementById(sourceId);
+        let sourceClassList = sourceElement.classList;
+        sourceElement.classList.add("ghost", touch && "touch"); // Add classNames to source to animate styles
+        // Set Ghost element
+        let newClassNames = `ghost ${touch && "touch"}`;
+        let className = `${sourceClassList} ${newClassNames}`;
         let component = React.cloneElement(items[dragItemIndex].element, {
           draggableItem: { id, className }
         }); // Clone source
@@ -382,17 +391,24 @@ function DraggableMasonryLayout(props) {
       ghostTimeout = setTimeout(() => {
         // If onTransitionEnd event was not triggered
         onGhostEndTransition();
-      }, 300);
+      }, ghostTransitionDuration + 100);
     }
   }, [mousePos, touchPos, touch, drag, dragPoint, dragItemIndex, ghost, items]);
 
   const onGhostEndTransition = () => {
-    // Turn-off ghost after drop and transfer to source
+    // Turn-off ghost
     clearTimeout(ghostTimeout);
     setGhost(undefined);
     setGhostPos(undefined);
-    setGhostSourceId(undefined);
   };
+
+  useEffect(() => {
+    // Clean source element. Transit to original styles
+    if (!ghost && ghostSourceId) {
+      document.getElementById(ghostSourceId).classList.remove("ghost", "touch");
+      setGhostSourceId(undefined);
+    }
+  }, [ghost]);
 
   ////////////////////
   /* Masonry Layout */
@@ -596,12 +612,12 @@ function DraggableMasonryLayout(props) {
           left: `${layout.elements[index] ? layout.elements[index].x : 0}px`,
           transition: `${
             ghostSourceId !== item.id && transition && layoutIsMount
-              ? `top ${transitionDuration} ${transitionTimingFunction}, left ${transitionDuration} ${transitionTimingFunction}`
+              ? `top ${transitionDuration}ms ${transitionTimingFunction}, left ${transitionDuration}ms ${transitionTimingFunction}`
               : "none"
           }`,
           visibility:
             layout.elements[index] && layoutIsMount ? "visible" : "hidden",
-          opacity: ghostSourceId === items[index].id ? 0 : 1
+          opacity: ghost && ghostSourceId === items[index].id ? 0 : 1
         }}
         onLoad={loadHandler}
         onError={errorHandler}
@@ -635,7 +651,7 @@ function DraggableMasonryLayout(props) {
           // outline: "1px solid red",
           transition:
             transition && layoutIsMount
-              ? `width ${transitionDuration} ${transitionTimingFunction}`
+              ? `width ${transitionDuration}ms ${transitionTimingFunction}`
               : "none"
         }}
         className="boundry-box"
@@ -647,6 +663,8 @@ function DraggableMasonryLayout(props) {
             y={ghostPos.y}
             drag={drag}
             onGhostEndTransition={onGhostEndTransition}
+            ghostTransitionDuration={ghostTransitionDuration}
+            ghostTransitionTimingFunction={ghostTransitionTimingFunction}
           >
             {ghost}
           </Ghost>
@@ -682,13 +700,17 @@ DraggableMasonryLayout.propTypes = {
   reverse: PropTypes.bool,
   onEndlineEnter: PropTypes.func,
   onRearrange: PropTypes.func,
-  transitionDuration: PropTypes.string,
-  transitionTimingFunction: PropTypes.string
+  transitionDuration: PropTypes.number,
+  transitionTimingFunction: PropTypes.string,
+  ghostTransitionDuration: PropTypes.number,
+  ghostTransitionTimingFunction: PropTypes.string
 };
 
 DraggableMasonryLayout.defaultProps = {
-  transitionDuration: "1s",
-  transitionTimingFunction: "ease"
+  transitionDuration: 800,
+  transitionTimingFunction: "ease",
+  ghostTransitionDuration: 200,
+  ghostTransitionTimingFunction: "ease"
 };
 
 export default DraggableMasonryLayout;

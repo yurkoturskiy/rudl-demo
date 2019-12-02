@@ -1,6 +1,7 @@
 import React from "react";
 
 function Ghost(props) {
+  const { ghostTransitionDuration, ghostTransitionTimingFunction } = props;
   return (
     <div
       style={{
@@ -9,7 +10,9 @@ function Ghost(props) {
         left: props.x,
         top: props.y,
         pointerEvents: "none",
-        transition: props.drag ? "none" : "left 0.2s, top 0.2s"
+        transition: props.drag
+          ? "none"
+          : `left ${ghostTransitionDuration}ms ${ghostTransitionTimingFunction}, top ${ghostTransitionDuration}ms ${ghostTransitionTimingFunction}`
       }}
       onTransitionEnd={() => props.onGhostEndTransition()}
     >

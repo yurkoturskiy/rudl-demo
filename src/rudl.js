@@ -16,7 +16,6 @@ function DraggableMasonryLayout(props) {
   } = props;
   const generateItems = () =>
     React.Children.map(props.children, (child, index) => {
-      console.log("child", child);
       if (child.props.separator) {
         return {
           index: index,
@@ -337,11 +336,10 @@ function DraggableMasonryLayout(props) {
 
   useEffect(() => {
     // Start dragging
-    if (drag && !ghost) {
+    if (drag && !ghost && !dragPoint) {
       let dragElementRect = document
         .getElementById(`${items[dragItemIndex].id}-wrapper`)
         .getBoundingClientRect();
-
       setDragPoint({
         x: (touch ? firstTouchPos.x : mouseDownPos.x) - dragElementRect.left,
         y: (touch ? firstTouchPos.y : mouseDownPos.y) - dragElementRect.top
@@ -707,7 +705,7 @@ DraggableMasonryLayout.propTypes = {
 };
 
 DraggableMasonryLayout.defaultProps = {
-  transitionDuration: 800,
+  transitionDuration: 600,
   transitionTimingFunction: "ease",
   ghostTransitionDuration: 200,
   ghostTransitionTimingFunction: "ease"

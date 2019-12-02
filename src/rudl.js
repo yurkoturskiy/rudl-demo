@@ -1,25 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-
-function Ghost(props) {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        visibility: "visible",
-        transform: `translate(${props.x}px, ${props.y}px)`,
-        pointerEvents: "none"
-      }}
-    >
-      {props.children}
-    </div>
-  );
-}
+import Ghost from "./Ghost";
 
 //////////////////////////////
 /* Masonry layout component */
 //////////////////////////////
-var longPress, press;
+var longPress, press, ghostTimeout;
 
 function DraggableMasonryLayout(props) {
   const { transitionTimingFunction, transitionDuration } = props;
@@ -178,15 +164,16 @@ function DraggableMasonryLayout(props) {
     setDragPoint(undefined);
     setDragItemIndex(undefined);
     setOverItemIndex(undefined);
-    // setCursorPos(undefined);
-    setGhost(undefined);
-    setGhostPos(undefined);
-    // Body
-    document.body.style.overflow = bodyDefaultOverflow;
-    document.body.style.overscrollBehaviorY = bodyDefaultOverscrollBehaviorY;
     // Log
     setUILog("cleanup");
   };
+
+  useEffect(() => {
+    if (!touch && !ghost) {
+      document.body.style.overflow = bodyDefaultOverflow;
+      document.body.style.overscrollBehaviorY = bodyDefaultOverscrollBehaviorY;
+    }
+  }, [touch, ghost]);
 
   //////////////////////////
   /* Touch screens events */
@@ -345,36 +332,55 @@ function DraggableMasonryLayout(props) {
   useEffect(() => {
     // Start dragging
     if (drag && !ghost) {
-      let dragElementWrapper = document.getElementById(
-        `${items[dragItemIndex].id}-wrapper`
-      );
+      let dragElementRect = document
+        .getElementById(`${items[dragItemIndex].id}-wrapper`)
+        .getBoundingClientRect();
+
       setDragPoint({
-        x:
-          (touch ? firstTouchPos.x : mouseDownPos.x) -
-          dragElementWrapper.offsetLeft,
-        y:
-          (touch ? firstTouchPos.y : mouseDownPos.y) -
-          dragElementWrapper.offsetTop
+        x: (touch ? firstTouchPos.x : mouseDownPos.x) - dragElementRect.left,
+        y: (touch ? firstTouchPos.y : mouseDownPos.y) - dragElementRect.top
       });
     }
   }, [drag, dragItemIndex, firstTouchPos, mouseDownPos, touch, items, ghost]);
 
+  ////////////
+  /* Ghost */
+  ///////////
   useEffect(() => {
-    // Set ghost position to mouse move position
+    // Ghost positioning effect
     if (drag && dragPoint && (touchPos || mousePos)) {
-      !ghost && setGhost(React.cloneElement(items[dragItemIndex].element));
-      setGhostSourceId(items[dragItemIndex].id);
+      !ghost && setGhost(React.cloneElement(items[dragItemIndex].element)); // Clone source
+      !ghostSourceId && setGhostSourceId(items[dragItemIndex].id);
+      // Set ghost position to mouse move position
       setGhostPos({
-        x: (touch ? touchPos.x : mousePos.x) - dragPoint.x - window.scrollX,
-        y: (touch ? touchPos.y : mousePos.y) - dragPoint.y - window.scrollY
+        x: (touch ? touchPos.x : mousePos.x) - dragPoint.x,
+        y: (touch ? touchPos.y : mousePos.y) - dragPoint.y
       });
     } else if (!drag && ghost) {
-      console.log("after drag");
-      // setGhostPos({
-      //   items[dragItemIndex].
-      // })
+      // Move ghost to the source position
+      let rect = document
+        .getElementById(`${ghostSourceId}-wrapper`)
+        .getBoundingClientRect();
+
+      setGhostPos({
+        x: rect.left,
+        y: rect.top
+      });
+
+      ghostTimeout = setTimeout(() => {
+        // If onTransitionEnd event was not triggered
+        onGhostEndTransition();
+      }, 300);
     }
   }, [mousePos, touchPos, touch, drag, dragPoint, dragItemIndex, ghost, items]);
+
+  const onGhostEndTransition = () => {
+    // Turn-off ghost after drop and transfer to source
+    clearTimeout(ghostTimeout);
+    setGhost(undefined);
+    setGhostPos(undefined);
+    setGhostSourceId(undefined);
+  };
 
   ////////////////////
   /* Masonry Layout */
@@ -501,7 +507,6 @@ function DraggableMasonryLayout(props) {
     let itemsSortedByOrder = items.concat().sort((a, b) => a.order - b.order);
     itemsSortedByOrder.forEach((item, index) => {
       // Calculate positions of each element
-      console.log("rudl item width", item.width);
       let cardWrapperElement = document.getElementById(`${item.id}-wrapper`);
       let height = item.height || cardWrapperElement.offsetHeight;
       cardWrapperWidth = item.width || cardWrapperElement.offsetWidth;
@@ -584,7 +589,7 @@ function DraggableMasonryLayout(props) {
           }`,
           visibility:
             layout.elements[index] && layoutIsMount ? "visible" : "hidden",
-          opacity: ghost && dragItemIndex === items[index].index ? 0 : 1
+          opacity: ghostSourceId === items[index].id ? 0 : 1
         }}
         onLoad={loadHandler}
         onError={errorHandler}
@@ -625,7 +630,12 @@ function DraggableMasonryLayout(props) {
       >
         {renderItems}
         {ghost && (
-          <Ghost x={ghostPos.x} y={ghostPos.y} drag={drag}>
+          <Ghost
+            x={ghostPos.x}
+            y={ghostPos.y}
+            drag={drag}
+            onGhostEndTransition={onGhostEndTransition}
+          >
             {ghost}
           </Ghost>
         )}

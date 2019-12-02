@@ -29,6 +29,7 @@ function DraggableMasonryLayout(props) {
         width: child.props.width,
         height: child.props.height,
         element: React.cloneElement(child, {
+          ...child.props,
           draggableItem: {
             onMouseDown: e => onMouseDown(e, index),
             onMouseEnter: e => onMouseEnterItem(e, index),
@@ -349,7 +350,17 @@ function DraggableMasonryLayout(props) {
   useEffect(() => {
     // Ghost positioning effect
     if (drag && dragPoint && (touchPos || mousePos)) {
-      !ghost && setGhost(React.cloneElement(items[dragItemIndex].element)); // Clone source
+      if (!ghost) {
+        // Create ghost
+        let sourceId = items[dragItemIndex].id;
+        let id = `${sourceId}-ghost`;
+        let sourceClassList = document.getElementById(sourceId).classList;
+        let className = `${sourceClassList} ghost`;
+        let component = React.cloneElement(items[dragItemIndex].element, {
+          draggableItem: { id, className }
+        }); // Clone source
+        setGhost(component);
+      }
       !ghostSourceId && setGhostSourceId(items[dragItemIndex].id);
       // Set ghost position to mouse move position
       setGhostPos({
@@ -357,16 +368,17 @@ function DraggableMasonryLayout(props) {
         y: (touch ? touchPos.y : mousePos.y) - dragPoint.y
       });
     } else if (!drag && ghost) {
-      // Move ghost to the source position
-      let rect = document
-        .getElementById(`${ghostSourceId}-wrapper`)
-        .getBoundingClientRect();
-
-      setGhostPos({
-        x: rect.left,
-        y: rect.top
-      });
-
+      try {
+        // Move ghost to the source position
+        let rect = document
+          .getElementById(`${ghostSourceId}-wrapper`)
+          .getBoundingClientRect();
+        let x = rect.left;
+        let y = rect.top;
+        setGhostPos({ x, y });
+      } catch (err) {
+        console.error(err);
+      }
       ghostTimeout = setTimeout(() => {
         // If onTransitionEnd event was not triggered
         onGhostEndTransition();

@@ -8,25 +8,32 @@ import "../styles/layout-switcher.css";
 import "@material/react-material-icon/dist/material-icon.css";
 
 function App() {
+  const margin = layout => {
+    if (window.innerWidth <= 640) return 4;
+    else return 12;
+  };
   const tilesLayoutParams = () => ({
     layout: "tiles",
     layoutWidth: window.innerWidth,
-    cardsWidth: window.innerWidth / 3,
-    cardsMargin: 12
+    cardsWidth: window.innerWidth / 3 - margin() * 2,
+    cardsMargin: margin()
   });
 
   const listLayoutParams = () => ({
     layout: "list",
-    layoutWidth: window.innerWidth,
-    cardsWidth: window.innerWidth / 3,
-    cardsMargin: 12
+    layoutWidth: window.innerWidth > 1000 ? 1000 : window.innerWidth,
+    cardsWidth:
+      window.innerWidth > 1000
+        ? 1000 - margin() * 2
+        : window.innerWidth - margin() * 2,
+    cardsMargin: margin()
   });
 
   const masonryLayoutParams = () => ({
     layout: "masonry",
     layoutWidth: window.innerWidth,
-    cardsWidth: window.innerWidth / 3,
-    cardsMargin: 12
+    cardsWidth: window.innerWidth / 3 - margin() * 2,
+    cardsMargin: margin()
   });
 
   const initialState = masonryLayoutParams();
@@ -45,9 +52,9 @@ function App() {
   };
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
+      <LayoutSwitcher />
       <Logo />
       <Layout />
-      <LayoutSwitcher />
     </StateProvider>
   );
 }

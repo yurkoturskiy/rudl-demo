@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { StateProvider } from "./state";
+import { StateProvider } from "../state/state";
 import Layout from "./Layout";
 import Logo from "./misc/Logo";
 import LayoutSwitcher from "./LayoutSwitcher";
-import "./App.css";
+import "../styles/App.css";
+import "../styles/layout-switcher.css";
 import "@material/react-material-icon/dist/material-icon.css";
 
 function App() {

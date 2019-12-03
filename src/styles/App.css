@@ -16,57 +16,6 @@ body {
   user-select: none;
 }
 
-.layout-menu {
-  position: fixed;
-  z-index: 6;
-  bottom: 4vh;
-  left: 0;
-  right: 0;
-  margin: 0 auto 0 auto;
-  /* height: 64px; */
-  width: 256px;
-  border-radius: 4px;
-  text-align: center;
-  background: white;
-  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.322);
-  animation: appearance 2s;
-}
-
-@keyframes appearance {
-  0% {bottom: -100px;}
-  50% {
-    bottom: -100px;
-    transform: scale(1);
-  }
-  80% {
-    bottom: 20vh;
-    transform: scale(1.6);
-  }
-  100% {
-    bottom: 4vh;
-    transform: scale(1);
-  }
-}
-
-.layout-icon {
-  font-size: 3rem ;
-  margin: 12px;
-  background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
-  transition: background 1s;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;  
-}
-
-.layout-icon.active {
-/* background: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%); */
-  /* background: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%); */
-
-  background: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
-  /* background: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%); */
-
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
 .cards-wrapper {
   margin-top: 72px;
@@ -74,7 +23,6 @@ body {
 
 .card {
   z-index: 2;
-  margin: 12px;
   /* background-color: black; */
   border-radius: 4px;
   /* outline: 1px solid red; */
@@ -100,9 +48,9 @@ body {
   box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 22px 0px rgba(0, 0, 0, 0.33);
 }
 
-.card.ghost.touch {
+/* .card.ghost.touch {
   box-shadow: 0 0 0 2px rgb(182, 182, 182), inset 0 0 0 4px white, 0px 0px 22px 0px rgba(100, 88, 88, 0.33);
-}
+} */
 
 .wrapper {
   width: 100%;

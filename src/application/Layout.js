@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useStateValue } from "../state/state";
 import Card from "./Card";
-import Rudl from "./rudl";
+import Rudl from "./rudl/rudl";
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
@@ -8,7 +9,10 @@ function getRandomArbitrary(min, max) {
 
 function Layout(props) {
   const [numOfCards] = useState(50);
-  const [cardsWidth, setCardsWidth] = useState(100);
+  const [
+    { layout, layoutWidth, cardsWidth, cardsMargin },
+    dispatch
+  ] = useStateValue();
 
   const cards = Array.from(Array(numOfCards)).map((_, index) => {
     return (
@@ -16,6 +20,7 @@ function Layout(props) {
         key={index}
         width={cardsWidth}
         height={getRandomArbitrary(300, 500)}
+        margin={cardsMargin}
         order={index}
         number={index + 1}
         id={index}
@@ -25,7 +30,7 @@ function Layout(props) {
   });
 
   return (
-    <div className="cards-wrapper">
+    <div className="cards-wrapper" style={{ width: `${layoutWidth}px` }}>
       <Rudl key="layout-for-pinned-notes">{cards}</Rudl>
     </div>
   );

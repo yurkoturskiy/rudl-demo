@@ -1,44 +1,53 @@
 import React, { useState, useEffect } from "react";
-import Card from "./Card";
-import Rudl from "./rudl";
+import { StateProvider } from "./state";
+import Layout from "./Layout";
+import Logo from "./misc/Logo";
+import TopPannel from "./TopPannel";
 import "./App.css";
-
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
+import "@material/react-material-icon/dist/material-icon.css";
 
 function App() {
-  const [numOfCards] = useState(50);
-  const [cardsWidth, setCardsWidth] = useState(400);
-  const [list, setList] = useState(false);
-
-  const cards = Array.from(Array(numOfCards)).map((_, index) => {
-    return (
-      <Card
-        key={index}
-        width={cardsWidth}
-        height={getRandomArbitrary(100, 200)}
-        order={index}
-        number={index + 1}
-        id={index}
-        index={index}
-      />
-    );
+  const tilesLayoutParams = () => ({
+    layout: "tiles",
+    layoutWidth: window.innerWidth,
+    cardsWidth: window.innerWidth / 3,
+    cardsMargin: 12
   });
 
-  const switcher = () => {
-    setList(list => !list);
+  const listLayoutParams = () => ({
+    layout: "list",
+    layoutWidth: window.innerWidth,
+    cardsWidth: window.innerWidth / 3,
+    cardsMargin: 12
+  });
+
+  const masonryLayoutParams = () => ({
+    layout: "masonry",
+    layoutWidth: window.innerWidth,
+    cardsWidth: window.innerWidth / 3,
+    cardsMargin: 12
+  });
+
+  const initialState = masonryLayoutParams();
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "tiles":
+        return tilesLayoutParams();
+      case "list":
+        return listLayoutParams();
+      case "masonry":
+        return masonryLayoutParams();
+      default:
+        return initialState;
+    }
   };
-
-  useEffect(() => {
-    setCardsWidth(list ? 1000 : 400);
-  }, [list]);
-
   return (
-    <div className="wrapper">
-      <button onClick={() => switcher()}>more</button>
-      <Rudl key="layout-for-pinned-notes">{cards}</Rudl>
-    </div>
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <Logo />
+      <TopPannel />
+      <Layout />
+    </StateProvider>
   );
 }
 

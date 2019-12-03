@@ -30,7 +30,10 @@ function Layout(props) {
   });
 
   return (
-    <div className="cards-wrapper" style={{ width: `${layoutWidth}px` }}>
+    <div
+      className="cards-wrapper"
+      style={{ width: `${layoutWidth}px`, overflow: "hidden" }}
+    >
       <Rudl key="layout-for-pinned-notes">{cards}</Rudl>
     </div>
   );

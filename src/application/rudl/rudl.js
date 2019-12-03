@@ -337,13 +337,17 @@ function DraggableMasonryLayout(props) {
   useEffect(() => {
     // Start dragging
     if (drag && !ghost && !dragPoint) {
-      let dragElementRect = document
-        .getElementById(`${items[dragItemIndex].id}-wrapper`)
-        .getBoundingClientRect();
-      setDragPoint({
-        x: (touch ? firstTouchPos.x : mouseDownPos.x) - dragElementRect.left,
-        y: (touch ? firstTouchPos.y : mouseDownPos.y) - dragElementRect.top
-      });
+      try {
+        let dragElementRect = document
+          .getElementById(`${items[dragItemIndex].id}-wrapper`)
+          .getBoundingClientRect();
+        setDragPoint({
+          x: (touch ? firstTouchPos.x : mouseDownPos.x) - dragElementRect.left,
+          y: (touch ? firstTouchPos.y : mouseDownPos.y) - dragElementRect.top
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
   }, [drag, dragItemIndex, firstTouchPos, mouseDownPos, touch, items, ghost]);
 

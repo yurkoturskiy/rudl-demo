@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StateProvider } from "./state";
 import Layout from "./Layout";
 import Logo from "./misc/Logo";
-import TopPannel from "./TopPannel";
+import LayoutSwitcher from "./LayoutSwitcher";
 import "./App.css";
 import "@material/react-material-icon/dist/material-icon.css";
 
@@ -45,8 +45,8 @@ function App() {
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
       <Logo />
-      <TopPannel />
       <Layout />
+      <LayoutSwitcher />
     </StateProvider>
   );
 }

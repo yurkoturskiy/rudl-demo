@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 
+const getGradientNum = () => {
+  return Math.round(Math.random() * 22);
+};
+
 function Card(props) {
-  const { id, height, width, margin } = props;
+  const { id, margin, width, height, isCircle } = props;
+  const gradientId = useMemo(() => getGradientNum(), []);
   return (
     <motion.div
-      className="card"
+      className={`card g-${gradientId}`}
       id={id}
       style={{
         height: `${height - margin * 2}px`,

@@ -49,7 +49,12 @@ function Layout(props) {
         overflow: "hidden"
       }}
     >
-      <Rudl key="layout-for-pinned-notes">{cards}</Rudl>
+      <Rudl
+        key="layout-for-pinned-notes"
+        onWidthResize={() => dispatch({ type: layout })}
+      >
+        {cards}
+      </Rudl>
     </div>
   );
 }

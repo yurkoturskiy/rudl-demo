@@ -439,8 +439,12 @@ function DraggableMasonryLayout(props) {
   const endlineStartRef = useRef(); // Endline start sensor
   const endlineEndRef = useRef(); // Endline end sensor
 
+  ////////////
+  // Resize //
+  ////////////
+  const [winWidth, setWinWidth] = useState(window.innerWidth);
   const [isResized, setIsResized] = useState(false);
-
+  const handleResize = evt => setIsResized(true);
   useEffect(() => {
     // Mount and unmount only
     // Add/remove event listeners
@@ -452,10 +456,12 @@ function DraggableMasonryLayout(props) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const handleResize = evt => setIsResized(true);
-
   useEffect(() => {
+    const widthIsResized = window.innerWidth !== winWidth;
+    if (widthIsResized) {
+      props.onWidthResize();
+      setWinWidth(window.innerWidth);
+    }
     // Check layout
     const wrapperWidth = masonryLayout.current.offsetWidth;
     var cardRefItem;
@@ -702,6 +708,7 @@ DraggableMasonryLayout.propTypes = {
   reverse: PropTypes.bool,
   onEndlineEnter: PropTypes.func,
   onRearrange: PropTypes.func,
+  onWidthResize: PropTypes.func,
   transitionDuration: PropTypes.number,
   transitionTimingFunction: PropTypes.string,
   ghostTransitionDuration: PropTypes.number,

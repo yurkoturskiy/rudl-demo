@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useStateValue } from "../state/state";
 import Card from "./Card";
 import Rudl from "./rudl/rudl";
@@ -9,26 +9,38 @@ function getRandomArbitrary(min, max) {
 
 function Layout(props) {
   const [numOfCards] = useState(50);
+
+  // State
   const [
-    { layout, layoutWidth, cardsWidth, cardsMargin },
+    { layout, layoutWidth, cardsWidth, cardsMargin, cardsHeightRange },
     dispatch
   ] = useStateValue();
 
+  // Set cards height
+  const cardsHeight = useMemo(
+    () =>
+      Array.from(Array(numOfCards)).map(() =>
+        getRandomArbitrary(...cardsHeightRange)
+      ),
+    [layout]
+  );
+
+  // Handle window resize
   const onWindowResize = () => {
     dispatch({ type: layout });
   };
-
   useEffect(() => {
     window.addEventListener("resize", onWindowResize);
     return () => window.removeEventListener("resize", onWindowResize);
   }, []);
 
+  // Prepare cards Components
   const cards = Array.from(Array(numOfCards)).map((_, index) => {
     return (
       <Card
         key={index}
         width={cardsWidth}
-        height={getRandomArbitrary(300, 500)}
+        height={cardsHeight[index]}
         margin={cardsMargin}
         order={index}
         number={index + 1}
@@ -41,7 +53,10 @@ function Layout(props) {
   return (
     <div
       className="cards-wrapper"
-      style={{ width: `${layoutWidth}px`, overflow: "hidden" }}
+      style={{
+        width: `${layoutWidth}px`,
+        overflow: "hidden"
+      }}
     >
       <Rudl key="layout-for-pinned-notes">{cards}</Rudl>
     </div>

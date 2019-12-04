@@ -16,23 +16,31 @@ body {
   user-select: none;
 }
 
+.github-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 
 .cards-wrapper {
-  margin-top: 72px;
+  margin: 72px auto 72px auto;
+  outline: 1px solid red;
+  transition: width 1s;
 }
 
 .card {
   z-index: 2;
-  /* background-color: black; */
   border-radius: 4px;
-  /* outline: 1px solid red; */
-  /* opacity: 0.4; */
+  mix-blend-mode: multiply;
   transition: width 1s, height 1s, box-shadow 1s;
-  background-image: linear-gradient(147deg, rgba(255, 88, 59, 0.5) 0%, rgba(255, 37, 37, 0.5) 74%);
-  /* box-shadow: inset 0 0 0 4px white, 0px 0px 10px 0px rgba(0, 0, 0, 0.2); */
   box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
   opacity: 1;
   cursor: grab; 
+}
+
+.card.circle {
+  border-radius: 50%;
 }
 
 .card:hover {
@@ -44,8 +52,8 @@ body {
 }
 
 .card.ghost {
-  z-index: 4;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 22px 0px rgba(0, 0, 0, 0.33);
+  /* z-index: 2; */
+  /* box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 22px 0px rgba(0, 0, 0, 0.33); */
 }
 
 /* .card.ghost.touch {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StateProvider } from "../state/state";
-import Layout from "./Layout";
+import Layout from "./layout/Layout";
 import Header from "./misc/Header";
-import LayoutSwitcher from "./LayoutSwitcher";
+import LayoutSwitcher from "./layout/LayoutSwitcher";
 import "../styles/App.css";
 import "../styles/layout-switcher.css";
 import "../styles/gradients.css";
@@ -19,8 +19,14 @@ function App() {
     else return 12;
   };
 
+  const tilesCardsWidth = () => {
+    let width = masterWidth();
+    let numOfColumns = width > 640 ? 3 : 2;
+    return width / numOfColumns - 2;
+  };
+
   const tilesLayoutParams = () => {
-    const cardsWidth = masterWidth() / 3 - 2;
+    const cardsWidth = tilesCardsWidth();
     const cardsHeightRange = [cardsWidth, cardsWidth];
     return {
       layout: "tiles",
@@ -48,9 +54,15 @@ function App() {
     };
   };
 
+  const masonryCardsWidth = () => {
+    let width = masterWidth();
+    let numOfColumns = width > 640 ? 4 : 3;
+    return width / numOfColumns - 2;
+  };
+
   const masonryLayoutParams = () => {
-    const cardsWidth = masterWidth() / 4 - 2;
-    const cardsHeightRange = [cardsWidth, cardsWidth * 2];
+    const cardsWidth = masonryCardsWidth();
+    const cardsHeightRange = [cardsWidth / 2.5, cardsWidth * 1.4];
     return {
       layout: "masonry",
       layoutWidth: masterWidth(),

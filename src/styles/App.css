@@ -16,7 +16,7 @@ body {
   top: 16px;
   left: 0;
   right: 0;
-  width: var(--layout-width);
+  width: 96vw;
   margin: 0 auto 0 auto;
   /* outline: 1px solid red; */
 }
@@ -48,6 +48,7 @@ body {
 
 .cards-wrapper {
   margin: 112px auto 72px auto;
+  /* outline: 1px solid hotpink; */
 }
 
 .card {

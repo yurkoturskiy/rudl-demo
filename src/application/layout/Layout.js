@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useStateValue } from "../state/state";
+import { useStateValue } from "../../state/state";
 import Card from "./Card";
-import Rudl from "./rudl/rudl";
+import Rudl from "../rudl/rudl";
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
@@ -25,15 +25,6 @@ function Layout(props) {
     [cardsHeightRange]
   );
 
-  // Handle window resize
-  const onWindowResize = () => {
-    dispatch({ type: layout });
-  };
-  useEffect(() => {
-    window.addEventListener("resize", onWindowResize);
-    return () => window.removeEventListener("resize", onWindowResize);
-  }, []);
-
   // Prepare cards Components
   const cards = Array.from(Array(numOfCards)).map((_, index) => {
     return (
@@ -54,7 +45,7 @@ function Layout(props) {
     <div
       className="cards-wrapper"
       style={{
-        width: `${layoutWidth}px`,
+        width: `96vw`,
         overflow: "hidden"
       }}
     >

@@ -22,7 +22,7 @@ function Layout(props) {
       Array.from(Array(numOfCards)).map(() =>
         getRandomArbitrary(...cardsHeightRange)
       ),
-    [layout]
+    [cardsHeightRange]
   );
 
   // Handle window resize

@@ -9,17 +9,19 @@ function Header(props) {
   // State
   const [{ layoutWidth, cardsMargin }] = useStateValue();
   return (
-    <div
-      className="header"
-      style={{
-        "--layout-width": `${layoutWidth}px`,
-        "--cards-margin": `${cardsMargin}px`
-      }}
-    >
-      <Logo />
-      {/* <Description /> */}
-      <GitHubBtn />
-    </div>
+    <>
+      <div
+        className="header"
+        style={{
+          "--layout-width": `${layoutWidth}px`,
+          "--cards-margin": `${cardsMargin}px`
+        }}
+      >
+        <Logo />
+        <Description />
+        <GitHubBtn />
+      </div>
+    </>
   );
 }
 

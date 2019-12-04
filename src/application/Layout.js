@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStateValue } from "../state/state";
 import Card from "./Card";
 import Rudl from "./rudl/rudl";
@@ -13,6 +13,15 @@ function Layout(props) {
     { layout, layoutWidth, cardsWidth, cardsMargin },
     dispatch
   ] = useStateValue();
+
+  const onWindowResize = () => {
+    dispatch({ type: layout });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", onWindowResize);
+    return () => window.removeEventListener("resize", onWindowResize);
+  }, []);
 
   const cards = Array.from(Array(numOfCards)).map((_, index) => {
     return (

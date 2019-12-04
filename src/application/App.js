@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StateProvider } from "../state/state";
 import Layout from "./Layout";
 import Logo from "./misc/Logo";
+import Description from "./misc/Description";
 import GitHubBtn from "./misc/GitHubBtn";
 import LayoutSwitcher from "./LayoutSwitcher";
 import "../styles/App.css";
@@ -10,38 +11,39 @@ import "../styles/gradients.css";
 import "@material/react-material-icon/dist/material-icon.css";
 
 function App() {
+  const masterWidth = () => {
+    return window.innerWidth - (window.innerWidth / 100) * 4;
+  };
+
   const margin = layout => {
-    if (window.innerWidth <= 640) return 4;
+    if (masterWidth() <= 640) return 4;
     else return 12;
   };
 
   const tilesLayoutParams = () => ({
     layout: "tiles",
-    layoutWidth: window.innerWidth,
-    cardsWidth: window.innerWidth / 3 - margin() * 2,
+    layoutWidth: masterWidth(),
+    cardsWidth: masterWidth() / 3,
     cardsMargin: margin()
   });
 
   const listCardsWidth = () => {
-    let width = window.innerWidth;
+    let width = masterWidth();
     width = width > 1000 && 1000;
     // width =
   };
 
   const listLayoutParams = () => ({
     layout: "list",
-    layoutWidth: window.innerWidth,
-    cardsWidth:
-      window.innerWidth > 1000
-        ? 1000 - margin() * 2
-        : window.innerWidth - margin() * 2,
+    layoutWidth: masterWidth(),
+    cardsWidth: masterWidth() > 1000 ? 1000 - margin() * 2 : masterWidth(),
     cardsMargin: margin()
   });
 
   const masonryLayoutParams = () => ({
     layout: "masonry",
-    layoutWidth: window.innerWidth,
-    cardsWidth: window.innerWidth / 3 - margin() * 2,
+    layoutWidth: masterWidth(),
+    cardsWidth: masterWidth() / 3,
     cardsMargin: margin()
   });
 
@@ -62,6 +64,7 @@ function App() {
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
       <Logo />
+      <Description />
       <GitHubBtn />
       <Layout />
       <LayoutSwitcher />

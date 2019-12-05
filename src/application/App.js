@@ -5,6 +5,7 @@ import Header from "./misc/Header";
 import LayoutSwitcher from "./layout/LayoutSwitcher";
 import "../styles/App.css";
 import "../styles/layout-switcher.css";
+import "../styles/dialog-window.css";
 import "../styles/gradients.css";
 import "@material/react-material-icon/dist/material-icon.css";
 

@@ -5,6 +5,7 @@
   height: var(--card-height);
   box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
   transform: translate(0%, 0%);
+  border-radius: 4px;
 }
 
 .dialog-enter-active {
@@ -12,9 +13,11 @@
   top: 50%;
   width: 50vw;
   height: 50vw;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.3);
-  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 10px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%) scale(1.05, 1.05) rotate(180deg) rotateX(10deg);
   transition: all 300ms;
+  border-radius: 50%;
+  /* transition-timing-function: cubic-bezier(.66, .41, .49, 1.25); */
 }
 
 .dialog-enter-done {
@@ -22,8 +25,11 @@
   top: 50%;
   width: 50vw;
   height: 50vw;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.3);
-  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 8px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%) scale(1, 1) rotate(90deg) rotateY(0deg);
+  transition: all 150ms;
+  transition-timing-function: cubic-bezier(.49, .38, .51, 1.35);
 }
 
 .dialog-exit {
@@ -31,8 +37,9 @@
   top: 50%;
   width: 50vw;
   height: 50vw;
+  border-radius: 50%;
   box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.2);
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1, 1) rotate(20deg) rotateY(0deg);
 }
 
 .dialog-exit-active {
@@ -40,16 +47,18 @@
   height: var(--card-height);
   top: var(--card-pos-y);
   left: var(--card-pos-x);
-  transform: translate(0%, 0%);
+  transform: translate(0%, 0%) scale(1, 1) rotate(0deg) rotateY(0deg);
+  border-radius: 4px;
   box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
   transition: all 300ms;
+  transition-timing-function: cubic-bezier(.66, .41, .49, 1.25);
 }
 
 .card-expand-window {
   position: fixed;
-  /* mix-blend-mode: multiply; */
+  mix-blend-mode: multiply;
   z-index: 4;
-  border-radius: 6px;
+  
 }
 
 .dialog-background {

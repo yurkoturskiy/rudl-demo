@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useStateValue } from "../../state/state";
 import Card from "./Card";
-import Rudl from "../rudl/rudl";
+import Rudl from "rudl";
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;

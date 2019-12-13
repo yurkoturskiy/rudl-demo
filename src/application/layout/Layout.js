@@ -12,7 +12,14 @@ function Layout(props) {
 
   // State
   const [
-    { layout, layoutWidth, cardsWidth, cardsMargin, cardsHeightRange },
+    {
+      layout,
+      layoutWidth,
+      cardsWidth,
+      cardsMargin,
+      cardsHeightRange,
+      cardsBorderWidth
+    },
     dispatch
   ] = useStateValue();
 
@@ -33,6 +40,7 @@ function Layout(props) {
         width={cardsWidth}
         height={cardsHeight[index]}
         margin={cardsMargin}
+        borderWidth={cardsBorderWidth}
         order={index}
         number={index + 1}
         id={index}

@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Rubik+Mono+One&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Rubik+Mono+One&display=swap");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 body {
-  background:  #FBFBFB;
-  margin: 0; 
-  font-family: 'Rubik Mono One', sans-serif;
+  background: #fbfbfb;
+  margin: 0;
+  font-family: "Rubik Mono One", sans-serif;
   overflow-x: hidden;
   touch-action: manipulation;
 }
@@ -35,7 +35,7 @@ body {
   right: 0;
   margin-left: var(--cards-margin);
   padding-left: 6px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
 }
 
@@ -56,9 +56,9 @@ body {
   border-radius: 4px;
   mix-blend-mode: multiply;
   transition: width 1s, height 1s, box-shadow 1s;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--card-box-shadow);
   opacity: var(--opacity);
-  cursor: grab; 
+  cursor: grab;
 }
 
 .card.circle {
@@ -66,7 +66,7 @@ body {
 }
 
 .card:hover {
-  box-shadow: inset 0 0 0 4px white, 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--card-box-shadow-hover);
 }
 
 .card:active:hover {
@@ -75,7 +75,7 @@ body {
 
 .card.ghost {
   z-index: 2;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 22px 0px rgba(0, 0, 0, 0.33);
+  box-shadow: var(--card-box-shadow-ghost);
 }
 
 .wrapper {

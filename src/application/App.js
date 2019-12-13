@@ -20,6 +20,10 @@ function App() {
     else return 12;
   };
 
+  const borderWidth = () => {
+    return masterWidth() <= 640 ? 2 : 4;
+  };
+
   const tilesCardsWidth = () => {
     let width = masterWidth();
     let numOfColumns = width > 640 ? 3 : 2;
@@ -34,7 +38,8 @@ function App() {
       layoutWidth: masterWidth(),
       cardsWidth,
       cardsHeightRange,
-      cardsMargin: margin()
+      cardsMargin: margin(),
+      cardsBorderWidth: borderWidth()
     };
   };
 
@@ -51,7 +56,8 @@ function App() {
       layoutWidth: masterWidth(),
       cardsWidth,
       cardsHeightRange,
-      cardsMargin: margin()
+      cardsMargin: margin(),
+      cardsBorderWidth: borderWidth()
     };
   };
 
@@ -69,7 +75,8 @@ function App() {
       layoutWidth: masterWidth(),
       cardsWidth,
       cardsHeightRange,
-      cardsMargin: margin()
+      cardsMargin: margin(),
+      cardsBorderWidth: borderWidth()
     };
   };
 

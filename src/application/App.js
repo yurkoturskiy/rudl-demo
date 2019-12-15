@@ -20,9 +20,9 @@ function App() {
     else return 12;
   };
 
-  const borderWidth = () => {
-    return masterWidth() <= 640 ? 2 : 4;
-  };
+  const borderWidth = () => (masterWidth() <= 640 ? 2 : 4);
+
+  const dialogBorderWidth = () => (masterWidth() <= 640 ? 4 : 8);
 
   const tilesCardsWidth = () => {
     let width = masterWidth();
@@ -39,7 +39,8 @@ function App() {
       cardsWidth,
       cardsHeightRange,
       cardsMargin: margin(),
-      cardsBorderWidth: borderWidth()
+      cardsBorderWidth: borderWidth(),
+      dialogBorderWidth: dialogBorderWidth()
     };
   };
 
@@ -57,7 +58,8 @@ function App() {
       cardsWidth,
       cardsHeightRange,
       cardsMargin: margin(),
-      cardsBorderWidth: borderWidth()
+      cardsBorderWidth: borderWidth(),
+      dialogBorderWidth: dialogBorderWidth()
     };
   };
 
@@ -76,7 +78,8 @@ function App() {
       cardsWidth,
       cardsHeightRange,
       cardsMargin: margin(),
-      cardsBorderWidth: borderWidth()
+      cardsBorderWidth: borderWidth(),
+      dialogBorderWidth: dialogBorderWidth()
     };
   };
 

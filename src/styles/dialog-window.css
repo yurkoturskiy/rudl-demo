@@ -3,7 +3,7 @@
   left: var(--card-pos-x);
   width: var(--card-width);
   height: var(--card-height);
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--card-box-shadow);
   transform: translate(0%, 0%);
   border-radius: 4px;
 }
@@ -13,8 +13,9 @@
   top: 50%;
   width: 50vw;
   height: 50vw;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 10px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.3);
-  transform: translate(-50%, -50%) scale(1.05, 1.05) rotate(180deg) rotateX(10deg);
+  box-shadow: var(--dialog-box-shadow);
+  transform: translate(-50%, -50%) scale(1.05, 1.05) rotate(180deg)
+    rotateX(10deg);
   transition: all 300ms;
   border-radius: 50%;
   /* transition-timing-function: cubic-bezier(.66, .41, .49, 1.25); */
@@ -26,10 +27,10 @@
   width: 50vw;
   height: 50vw;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 8px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--dialog-box-shadow);
   transform: translate(-50%, -50%) scale(1, 1) rotate(90deg) rotateY(0deg);
   transition: all 150ms;
-  transition-timing-function: cubic-bezier(.49, .38, .51, 1.35);
+  transition-timing-function: cubic-bezier(0.49, 0.38, 0.51, 1.35);
 }
 
 .dialog-exit {
@@ -38,7 +39,7 @@
   width: 50vw;
   height: 50vw;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--dialog-box-shadow);
   transform: translate(-50%, -50%) scale(1, 1) rotate(20deg) rotateY(0deg);
 }
 
@@ -49,16 +50,15 @@
   left: var(--card-pos-x);
   transform: translate(0%, 0%) scale(1, 1) rotate(0deg) rotateY(0deg);
   border-radius: 4px;
-  box-shadow: 0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 4px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--card-box-shadow);
   transition: all 300ms;
-  transition-timing-function: cubic-bezier(.66, .41, .49, 1.25);
+  transition-timing-function: cubic-bezier(0.66, 0.41, 0.49, 1.25);
 }
 
 .card-expand-window {
   position: fixed;
   mix-blend-mode: multiply;
   z-index: 4;
-  
 }
 
 .dialog-background {

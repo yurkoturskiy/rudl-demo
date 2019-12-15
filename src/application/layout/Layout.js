@@ -18,7 +18,8 @@ function Layout(props) {
       cardsWidth,
       cardsMargin,
       cardsHeightRange,
-      cardsBorderWidth
+      cardsBorderWidth,
+      dialogBorderWidth
     },
     dispatch
   ] = useStateValue();
@@ -41,6 +42,7 @@ function Layout(props) {
         height={cardsHeight[index]}
         margin={cardsMargin}
         borderWidth={cardsBorderWidth}
+        dialogBorderWidth={dialogBorderWidth}
         order={index}
         number={index + 1}
         id={index}

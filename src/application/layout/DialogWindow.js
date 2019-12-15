@@ -7,7 +7,7 @@ function DialogWindow(props) {
   const [cardHeight, setCardHeight] = useState();
   const [cardPosX, setCardPosX] = useState();
   const [cardPosY, setCardPosY] = useState();
-  const { node } = props;
+  const { node, cardBorderWidth, borderWidth } = props;
 
   // Set and update card's size
   const updateCardParams = () => {
@@ -60,6 +60,10 @@ function DialogWindow(props) {
           className={`card-expand-window g-${node.gradientId}`}
           id={`${node.id}-dialog`}
           onClick={() => closeEdit()}
+          style={{
+            "--card-box-shadow": `0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 ${cardBorderWidth}px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2)`,
+            "--dialog-box-shadow": `0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 ${borderWidth}px white, 0px 0px 50px 0px rgba(0, 0, 0, 0.3)`
+          }}
         />
       </CSSTransition>
       {props.expand && (

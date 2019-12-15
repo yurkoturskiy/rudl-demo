@@ -10,7 +10,15 @@ const getGradientNum = () => {
 function Card(props) {
   const [expand, setExpand] = useState(false);
   const [visible, setVisible] = useState(true);
-  const { id, margin, width, height, isCircle, borderWidth } = props;
+  const {
+    id,
+    margin,
+    width,
+    height,
+    isCircle,
+    borderWidth,
+    dialogBorderWidth
+  } = props;
   const gradientId = useMemo(() => getGradientNum(), []);
 
   const switchVisibility = () => {
@@ -22,6 +30,8 @@ function Card(props) {
       expand={expand}
       setExpand={setExpand}
       switchVisibility={switchVisibility}
+      borderWidth={dialogBorderWidth}
+      cardBorderWidth={borderWidth}
     >
       <div onClick={() => setExpand(true)}>
         <motion.div

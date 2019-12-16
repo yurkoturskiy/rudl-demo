@@ -3,9 +3,7 @@ import { useStateValue } from "../../state/state";
 import Card from "./Card";
 import Rudl from "rudl";
 
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
+const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min;
 
 function Layout(props) {
   const [numOfCards] = useState(50);
@@ -30,7 +28,7 @@ function Layout(props) {
       Array.from(Array(numOfCards)).map(() =>
         getRandomArbitrary(...cardsHeightRange)
       ),
-    [cardsHeightRange]
+    [cardsHeightRange, numOfCards]
   );
 
   // Prepare cards Components
@@ -63,6 +61,8 @@ function Layout(props) {
         key="layout-for-pinned-notes"
         onWidthResize={() => dispatch({ type: layout })}
         transitionTimingFunction="cubic-bezier(.42,.2,.23,1.27)"
+        ghostTransitionDuration={300}
+        ghostTransitionTimingFunction="cubic-bezier(.42,.2,.23,1.27)"
       >
         {cards}
       </Rudl>

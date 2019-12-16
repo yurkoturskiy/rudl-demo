@@ -10,15 +10,7 @@ const getGradientNum = () => {
 function Card(props) {
   const [expand, setExpand] = useState(false);
   const [visible, setVisible] = useState(true);
-  const {
-    id,
-    margin,
-    width,
-    height,
-    isCircle,
-    borderWidth,
-    dialogBorderWidth
-  } = props;
+  const { id, margin, width, height, borderWidth, dialogBorderWidth } = props;
   const gradientId = useMemo(() => getGradientNum(), []);
 
   const switchVisibility = () => {
@@ -33,14 +25,13 @@ function Card(props) {
       borderWidth={dialogBorderWidth}
       cardBorderWidth={borderWidth}
     >
-      <div onClick={() => setExpand(true)}>
+      <div onClick={() => setExpand(true)} style={{ margin: `${margin}px` }}>
         <motion.div
           className={`card g-${gradientId}`}
           id={id}
           style={{
             height: `${height - margin * 2}px`,
             width: `${width - margin * 2}px`,
-            margin: `${margin}px`,
             "--opacity": visible ? 1 : 0,
             "--card-box-shadow": `0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 ${borderWidth}px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2)`,
             "--card-box-shadow-hover": `inset 0 0 0 ${borderWidth}px white, 0px 0px 4px 0px rgba(0, 0, 0, 0.2)`,

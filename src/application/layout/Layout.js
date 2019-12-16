@@ -62,6 +62,7 @@ function Layout(props) {
       <Rudl
         key="layout-for-pinned-notes"
         onWidthResize={() => dispatch({ type: layout })}
+        transitionTimingFunction="cubic-bezier(.42,.2,.23,1.27)"
       >
         {cards}
       </Rudl>

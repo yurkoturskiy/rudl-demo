@@ -3,6 +3,7 @@ import { StateProvider } from "../state/state";
 import Layout from "./layout/Layout";
 import Header from "./misc/Header";
 import LayoutSwitcher from "./layout/LayoutSwitcher";
+import JobSearch from "./misc/JobSearch";
 import "../styles/App.css";
 import "../styles/layout-switcher.css";
 import "../styles/dialog-window.css";
@@ -99,6 +100,7 @@ function App() {
   };
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
+      <JobSearch />
       <Header />
       <Layout />
       <LayoutSwitcher />

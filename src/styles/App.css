@@ -55,8 +55,8 @@ body {
   z-index: 2;
   border-radius: 4px;
   mix-blend-mode: multiply;
-  transition: width 600ms cubic-bezier(0.42, 0.2, 0.23, 1.27),
-    height 600ms cubic-bezier(0.42, 0.2, 0.23, 1.27), box-shadow 600ms;
+  transition: width 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27),
+    height 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27), box-shadow 800ms;
   box-shadow: var(--card-box-shadow);
   opacity: var(--opacity);
   cursor: grab;

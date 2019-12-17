@@ -53,7 +53,7 @@ function Layout(props) {
     <div
       className="cards-wrapper"
       style={{
-        width: `96vw`,
+        width: `${layoutWidth}px`,
         overflow: "hidden"
       }}
     >

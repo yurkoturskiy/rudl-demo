@@ -36,7 +36,6 @@ function App() {
     const cardsHeightRange = [cardsWidth, cardsWidth];
     return {
       layout: "tiles",
-      layoutWidth: masterWidth(),
       cardsWidth,
       cardsHeightRange,
       cardsMargin: margin(),
@@ -55,7 +54,6 @@ function App() {
     const cardsHeightRange = [cardsWidth / 3, cardsWidth / 3];
     return {
       layout: "list",
-      layoutWidth: masterWidth(),
       cardsWidth,
       cardsHeightRange,
       cardsMargin: margin(),
@@ -75,7 +73,6 @@ function App() {
     const cardsHeightRange = [cardsWidth / 2.5, cardsWidth * 1.4];
     return {
       layout: "masonry",
-      layoutWidth: masterWidth(),
       cardsWidth,
       cardsHeightRange,
       cardsMargin: margin(),

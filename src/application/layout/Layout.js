@@ -12,7 +12,6 @@ function Layout(props) {
   const [
     {
       layout,
-      layoutWidth,
       cardsWidth,
       cardsMargin,
       cardsHeightRange,
@@ -53,7 +52,8 @@ function Layout(props) {
     <div
       className="cards-wrapper"
       style={{
-        width: `${layoutWidth}px`,
+        width: `96vw`,
+        maxWidth: `1920px`,
         overflow: "hidden"
       }}
     >
@@ -64,6 +64,7 @@ function Layout(props) {
         transitionTimingFunction="cubic-bezier(.42,.2,.23,1.27)"
         ghostTransitionDuration={300}
         ghostTransitionTimingFunction="cubic-bezier(.42,.2,.23,1.27)"
+        onRearrange={() => console.log("rearranged")}
       >
         {cards}
       </Rudl>

@@ -7,7 +7,7 @@ function GitHubBtn(props) {
       <GitHubButton
         href="https://github.com/guandjoy/rudl"
         data-color-scheme="no-preference: light; light: light; dark: dark;"
-        data-size="large"
+        data-size={window.innerWidth > 960 && "large"}
         data-show-count="true"
         aria-label="Star guandjoy/rudl on GitHub"
       >

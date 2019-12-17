@@ -38,7 +38,7 @@ const listCardsWidth = () => {
 
 const listLayoutParams = () => {
   const cardsWidth = listCardsWidth();
-  const cardsHeightRange = [cardsWidth / 3, cardsWidth / 3];
+  const cardsHeightRange = [cardsWidth / 4, cardsWidth / 4];
   return {
     layout: "list",
     cardsWidth,

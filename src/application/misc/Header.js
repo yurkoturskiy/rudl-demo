@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./Logo";
 import Description from "./Description";
 import GitHubBtn from "./GitHubBtn";
+import JobSearch from "./JobSearch";
 // State
 import { useStateValue } from "../../state/state";
 
@@ -17,6 +18,7 @@ function Header(props) {
           "--cards-margin": `${cardsMargin}px`
         }}
       >
+        <JobSearch />
         <Logo />
         <Description />
         <GitHubBtn />

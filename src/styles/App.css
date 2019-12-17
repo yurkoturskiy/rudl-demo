@@ -46,6 +46,26 @@ body {
   /* outline: 1px solid red; */
 }
 
+#codesandbox-logo {
+  /* position: absolute; */
+  height: 32px;
+  margin-right: var(--cards-margin);
+  /* min-height: 20px; */
+  color: #2b2b2b;
+  /* outline: 1px solid red; */
+  /* transform: translate(0, 50%); */
+  transition: color 0.3s, box-shadow 0.3s, transform 0.3s;
+  /* box-shadow: 0 0 1px 0 black; */
+  padding: 6px;
+  border-radius: 4px;
+}
+
+#codesandbox-logo:hover {
+  color: #2b2b2b;
+  box-shadow: 0 0 6px 0 rgb(199, 199, 199);
+  transform: scale(1.05);
+}
+
 .job {
   position: fixed;
   padding: 0 12px 0 12px;

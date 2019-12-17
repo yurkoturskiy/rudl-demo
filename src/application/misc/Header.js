@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./Logo";
 import Description from "./Description";
 import GitHubBtn from "./GitHubBtn";
+import CodeSandbox from "./CodeSandbox/CodeSandbox";
 import JobSearch from "./JobSearch";
 // State
 import { useStateValue } from "../../state/state";
@@ -22,6 +23,7 @@ function Header(props) {
         <Logo />
         <Description />
         <GitHubBtn />
+        <CodeSandbox />
       </div>
     </>
   );

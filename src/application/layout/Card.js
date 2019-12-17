@@ -35,9 +35,9 @@ function Card(props) {
             "--opacity": visible ? 1 : 0,
             "--card-box-shadow": `0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 ${borderWidth}px white, 0px 0px 2px 0px rgba(0, 0, 0, 0.2)`,
             "--card-box-shadow-hover": `inset 0 0 0 ${borderWidth}px white, 0px 0px 4px 0px rgba(0, 0, 0, 0.2)`,
-            "--card-box-shadow-ghost": `0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 ${borderWidth}px white, 0px 0px 22px 0px rgba(0, 0, 0, 0.33)`
+            "--card-box-shadow-ghost": `0 0 0 2px rgba(182, 182, 182, 0), inset 0 0 0 ${borderWidth}px white, 0px 0px 22px 0px rgba(255, 127, 80, 0.33)`
           }}
-          whileHover={{ scale: 1.01 }}
+          whileHover={{ scale: 1.006 }}
           whileTap={{
             scale: 0.98
           }}

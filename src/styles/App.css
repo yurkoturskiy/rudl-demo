@@ -87,7 +87,7 @@ body {
   border-radius: 4px;
   mix-blend-mode: multiply;
   transition: width 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27),
-    height 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27), box-shadow 800ms;
+    height 800ms cubic-bezier(0.42, 0.2, 0.23, 1.27), box-shadow 300ms;
   box-shadow: var(--card-box-shadow);
   opacity: var(--opacity);
   cursor: grab;
@@ -97,9 +97,9 @@ body {
   border-radius: 50%;
 }
 
-.card:hover {
+/* .card:hover {
   box-shadow: var(--card-box-shadow-hover);
-}
+} */
 
 .card:active:hover {
   cursor: grabbing;

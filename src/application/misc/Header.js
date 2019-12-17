@@ -19,7 +19,7 @@ function Header(props) {
           "--cards-margin": `${cardsMargin}px`
         }}
       >
-        <JobSearch />
+        {/* <JobSearch /> */}
         <Logo />
         <Description />
         <GitHubBtn />

@@ -8,7 +8,7 @@ function LayoutSwitcher(props) {
 
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
-    setTimeout(() => setIsVisible(true), 1200);
+    setTimeout(() => setIsVisible(true), 1000);
   }, []);
 
   const item = type => {

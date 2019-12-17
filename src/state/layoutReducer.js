@@ -4,7 +4,7 @@ const masterWidth = () => {
 };
 
 const margin = layout => {
-  if (masterWidth() <= 640) return 4;
+  if (masterWidth() <= 960) return 4;
   else return 12;
 };
 

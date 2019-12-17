@@ -4,11 +4,19 @@ import { motion, AnimatePresence } from "framer-motion";
 function JobSearch() {
   const [isVisible, setIsVisible] = useState(false);
   const [delay] = useState(5000);
-  const [livetime] = useState(2600);
+  const [livetime] = useState(3100);
+  const [livetimeDisplay, setLivetimeDisplay] = useState(3);
   useEffect(() => {
     setTimeout(() => setIsVisible(true), delay);
     setTimeout(() => setIsVisible(false), delay + livetime);
   }, []);
+  useEffect(() => {
+    isVisible &&
+      setTimeout(
+        () => setLivetimeDisplay(livetimeDisplay => livetimeDisplay - 1),
+        1000
+      );
+  }, [isVisible, livetimeDisplay]);
   return (
     <AnimatePresence>
       {isVisible && (
@@ -18,11 +26,10 @@ function JobSearch() {
           animate={{ y: 148, rotate: 0, scale: 1 }}
           exit={{ y: 0, rotate: -90, scale: 0 }}
           transition={{
-            duration: 0.2,
-            delay: 1,
             type: "spring"
           }}
         >
+          <span className="counter">{livetimeDisplay}</span>
           The author is looking for a job{" "}
           <span role="img" aria-label="sheep">
             🧐

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
@@ -9,19 +9,19 @@ function DialogWindow(props) {
   const [cardPosY, setCardPosY] = useState();
   const { node, cardBorderWidth, borderWidth } = props;
 
-  // Set and update card's size
-  const updateCardParams = () => {
-    const element = document.getElementById(node.id);
-    setCardHeight(`${element.offsetHeight}px`);
-    setCardWidth(`${element.offsetWidth}px`);
-  };
   useEffect(() => {
     const element = document.getElementById(node.id);
+    // Set and update card's size
+    const updateCardParams = () => {
+      setCardHeight(`${element.offsetHeight}px`);
+      setCardWidth(`${element.offsetWidth}px`);
+    };
+
     setCardHeight(`${element.offsetHeight}px`);
     setCardWidth(`${element.offsetWidth}px`);
     window.addEventListener("resize", updateCardParams);
     return () => window.removeEventListener("resize", updateCardParams);
-  }, []);
+  }, [node.id]);
 
   // Set and update card's position
   useEffect(() => {

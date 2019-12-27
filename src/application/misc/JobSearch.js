@@ -9,7 +9,7 @@ function JobSearch() {
   useEffect(() => {
     setTimeout(() => setIsVisible(true), delay);
     setTimeout(() => setIsVisible(false), delay + livetime);
-  }, []);
+  }, [delay, livetime]);
   useEffect(() => {
     isVisible &&
       setTimeout(

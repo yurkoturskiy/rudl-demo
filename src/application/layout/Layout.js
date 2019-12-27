@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { useStateValue } from "../../state/state";
 import Card from "./Card";
 import Rudl from "rudl";

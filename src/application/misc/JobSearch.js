@@ -6,19 +6,25 @@ function JobSearch() {
   const [delay] = useState(5000);
   const [livetime] = useState(3100);
   const [livetimeDisplay, setLivetimeDisplay] = useState(3);
-  var searchParams = new URLSearchParams();
-  console.log("sting query", searchParams);
   useEffect(() => {
-    setTimeout(() => setIsVisible(true), delay);
-    setTimeout(() => setIsVisible(false), delay + livetime);
+    // Job Search message appearance
+    const urlParams = new URLSearchParams(window.location.search);
+    const preview = urlParams.get("preview");
+    if (preview !== "true") {
+      setTimeout(() => setIsVisible(true), delay);
+      setTimeout(() => setIsVisible(false), delay + livetime);
+    }
   }, [delay, livetime]);
+
   useEffect(() => {
+    // Counter
     isVisible &&
       setTimeout(
         () => setLivetimeDisplay(livetimeDisplay => livetimeDisplay - 1),
         1000
       );
   }, [isVisible, livetimeDisplay]);
+
   return (
     <AnimatePresence>
       {isVisible && (

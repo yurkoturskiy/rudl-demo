@@ -6,6 +6,7 @@ function JobSearch() {
   const [delay] = useState(5000);
   const [livetime] = useState(3100);
   const [livetimeDisplay, setLivetimeDisplay] = useState(3);
+
   useEffect(() => {
     // Job Search message appearance
     const urlParams = new URLSearchParams(window.location.search);
